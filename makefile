@@ -6,29 +6,29 @@ test:
 	gcc -o test.out test.c led-matrix-connector.c -lwiringPi
 	
 invader:
-	gcc -o invader.out leds_invader.c -lwiringPi
+	gcc -o invader.out old_ugly_examples/leds_invader.c -lwiringPi
 
 runners:
-	gcc -o runners.out leds_cyan_runners.c -lwiringPi
+	gcc -o runners.out old_ugly_examples/leds_cyan_runners.c -lwiringPi
 
 heart:
-	gcc -o heart.out leds_heart.c -lwiringPi
+	gcc -o heart.out old_ugly_examples/leds_heart.c -lwiringPi
 
 colors: red green blue cyan magenta
 
 red:
-	gcc -o red.out leds_all_red.c -lwiringPi
+	gcc -o red.out old_ugly_examples/leds_all_red.c -lwiringPi
 green:
-	gcc -o green.out leds_all_green.c -lwiringPi
+	gcc -o green.out old_ugly_examples/leds_all_green.c -lwiringPi
 blue:
-	gcc -o blue.out leds_all_blue.c -lwiringPi
+	gcc -o blue.out old_ugly_examples/leds_all_blue.c -lwiringPi
 cyan:
-	gcc -o cyan.out leds_all_cyan.c -lwiringPi
+	gcc -o cyan.out old_ugly_examples/leds_all_cyan.c -lwiringPi
 magenta:
-	gcc -o magenta.out leds_all_magenta.c -lwiringPi
+	gcc -o magenta.out old_ugly_examples/leds_all_magenta.c -lwiringPi
 #~ yellow:
 #~ 	echo -e ${RED}TBD${NC}
 white:
-	gcc -o white.out leds_all_white.c -lwiringPi
+	gcc -o white.out old_ugly_examples/leds_all_white.c -lwiringPi
 	
 amends:
