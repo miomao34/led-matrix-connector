@@ -1,5 +1,5 @@
 # led-matrix-connector
-Playing with led matrix - reverse engineering byte codes and setting up rich connector library
+Playing with led matrix - reverse engineering byte codes and setting up rich connector library__
 Matrix model name: `Led Matrix V1.0 2016-07-05` (bought from aliexpress, so that's the most information I'll ever have ¯\_(ツ)_/¯)
 
 
