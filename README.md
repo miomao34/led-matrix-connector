@@ -1,11 +1,12 @@
 # led-matrix-connector
 Playing with led matrix - reverse engineering byte codes and setting up rich connector library<br/>
-Matrix model name: `Led Matrix V1.0 2016-07-05` (bought from aliexpress, so that's the most information I'll ever have ¯\\_(ツ)_/¯)
+Matrix model name: `Led Matrix V1.0 2016-07-05` (bought from aliexpress, so that's all the information I'll ever get<br/>¯\\_(ツ)_/¯)
 
 
 ## TODO, code:
 * Gotta make better names for `cancelFunc`/`exitFunc` for better understanding and structure
 * Animations:
+  * Add special mode for displaying text
   * Deal with sending chunks of unspecified size, add timeout between frames to config
   * `LedAnimationPlay(...)` - async?
 * Add more coloring options:
