@@ -2,8 +2,8 @@ all:
 	gcc -o wipe.out leds_wipe.c -lwiringPi
 	gcc -o leds.out leds.c -lwiringPi
 
-test:
-	gcc -o test.out test.c led-matrix-connector.c -lwiringPi
+example:
+	gcc -o example.out example.c led-matrix-connector.c -lwiringPi
 	
 invader:
 	gcc -o invader.out old_ugly_examples/leds_invader.c -lwiringPi
