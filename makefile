@@ -1,6 +1,6 @@
 all:
-	gcc -o wipe.out leds_wipe.c -lwiringPi
-	gcc -o leds.out leds.c -lwiringPi
+	gcc -o wipe.out old_ugly_examples/leds_wipe.c -lwiringPi
+	gcc -o leds.out old_ugly_examples/leds.c -lwiringPi
 
 example:
 	gcc -o example.out example.c led-matrix-connector.c -lwiringPi
