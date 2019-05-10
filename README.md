@@ -1,5 +1,5 @@
 # led-matrix-connector
-Playing with led matrix - reverse engineering byte codes and setting up rich connector library<br/>
+Reverse engineering byte codes and setting up rich connector library<br/>
 Matrix model name: `Led Matrix V1.0 2016-07-05` (bought from aliexpress, so that's all the information I'll ever get<br/>¯\\_(ツ)_/¯)
 
 
@@ -12,8 +12,7 @@ Matrix model name: `Led Matrix V1.0 2016-07-05` (bought from aliexpress, so that
 * Add more coloring options:
   * Add 2 non-animated renderer functions - monochromatic and multi-color
   * Add support for multi-color rendering, sending an array of 64 chars/ints to renderer
-  * Add color to renderer function if monochromatic (setting it by char - `b` for blue; by word - `blue` for blue)
-  * Add primary color to config (setting it as above), so it would be possible to send only 4 `uint8`'s to render
+  * Add other 6 colors to `LedRenderMonochrome(...)`
 
 
 ## TODO, repository:
