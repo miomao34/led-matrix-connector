@@ -21,9 +21,13 @@ typedef struct
 	uint8_t payload[4];
 } LedRenderLine;
 
-int LedRenderMonochrome(LedMonochromeMessage lmm, int renderDuration);
 int LedSetConfig(LedConfig Config);
 int LedInit(LedConfig Config);
 int LedFinalise();
+
+uint8_t ledMirror(uint8_t byte);
+int ledMirrorMessage(LedMonochromeMessage output, LedMonochromeMessage msg);
+
+int LedRenderMonochrome(LedMonochromeMessage lmm, int renderDuration);
 
 int LedClear();

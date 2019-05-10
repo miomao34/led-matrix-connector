@@ -7,7 +7,7 @@
 void myExit()
 {
 	LedClear();
-	
+	printf("\n");
 	return;
 }
 
@@ -15,14 +15,12 @@ int main()
 {
 	LedConfig Config = {};
 	Config.orientation = 0;
-	Config.primaryColor = 'g';
+	Config.primaryColor = 'r';
 	Config.delayTime = 1;
 	Config.exitFunction = myExit;
 	LedInit(Config);
-	
-	
-	
-	LedMonochromeMessage stairs[8] = {
+		
+	LedMonochromeMessage message[8] = {
 		{
 			0b01111110,
 			0b01111110,
@@ -107,9 +105,23 @@ int main()
 	
 	while(1)
 	{
+		Config.primaryColor = 'r';
+		LedSetConfig(Config);
 		for (int i = 0; i < 8; i++)
 		{
-			LedRenderMonochrome(stairs[i], 100);
+			LedRenderMonochrome(message[i], 500);
+		}
+		Config.primaryColor = 'g';
+		LedSetConfig(Config);
+		for (int i = 0; i < 8; i++)
+		{
+			LedRenderMonochrome(message[i], 500);
+		}
+		Config.primaryColor = 'b';
+		LedSetConfig(Config);
+		for (int i = 0; i < 8; i++)
+		{
+			LedRenderMonochrome(message[i], 500);
 		}
 	}
 	LedFinalise();

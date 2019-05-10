@@ -19,14 +19,32 @@ LedConfig DefaultConfig = {
 	1,
 	DefaultExitFunction
 };
-
-LedRenderLine LedGreenMask = {
-	0b00000000,
-	0b00000000,
-	0b11111111,
-	0b11111111
+struct
+{
+	LedRenderLine Red;
+	LedRenderLine Green;
+	LedRenderLine Blue;
+} LedMasks =
+{
+	{
+		0b00001111,
+		0b11110000,
+		0b11110000,
+		0b00001111
+	},
+	{
+		0b00000000,
+		0b00000000,
+		0b11111111,
+		0b11111111
+	},
+	{
+		0b00001111,
+		0b11110000,
+		0b00001111,
+		0b11110000
+	}
 };
-
 void cancelFunction()
 {
 	LedFinalise();
@@ -63,26 +81,87 @@ int LedFinalise()
 	return 0;
 }
 
+uint8_t ledMirror(uint8_t byte)
+{
+	return ( \
+		((byte & 1  ) << 7) | \
+		((byte & 2  ) << 5) | \
+		((byte & 4  ) << 3) | \
+		((byte & 8  ) << 1) | \
+		((byte & 16 ) >> 1) | \
+		((byte & 32 ) >> 3) | \
+		((byte & 64 ) >> 5) | \
+		((byte & 128) >> 7)   \
+	);
+}
+
+int ledMirrorMessage(LedMonochromeMessage output, LedMonochromeMessage msg)
+{
+	for (int i = 0; i < 8; i++)
+		output[i] = ledMirror(msg[i]);
+		
+	return 0;
+}
+
 int LedRenderMonochrome(LedMonochromeMessage lmm, int renderDuration)
 {
 	int duration = 0;
+	LedMonochromeMessage lmmMirrored = {};
+	ledMirrorMessage(lmmMirrored, lmm);
+	
 	switch(__config__.primaryColor)
 	{
-	case 'g':
+	case 'r':
 		while (duration < renderDuration)
 		{
 			for (int i = 0; i <= 7; i++)
 			{			
-				__renderline__.payload[0] = LedGreenMask.payload[0] | ((1 << i) & 0b11110000) | (((~lmm[i]) & 0b11110000) >> 4);
-				__renderline__.payload[1] = LedGreenMask.payload[1] | ((1 << i) & 0b00001111) | (((~lmm[i]) & 0b00001111) << 4);
-				__renderline__.payload[2] = LedGreenMask.payload[2];
-				__renderline__.payload[3] = LedGreenMask.payload[3];
+				__renderline__.payload[0] = LedMasks.Red.payload[0] | ((1 << i) & 0b11110000);
+				__renderline__.payload[1] = LedMasks.Red.payload[1] | ((1 << i) & 0b00001111);
+				__renderline__.payload[2] = LedMasks.Red.payload[2] | (((~lmm[i])         & 0b11110000) >> 4);
+				__renderline__.payload[3] = LedMasks.Red.payload[3] | (((~lmmMirrored[i]) & 0b11110000));
 				
 				wiringPiSPIDataRW(0, __renderline__.payload, LED_SEND_SIZE);
 				delay(__config__.delayTime);
 			}
 			
-			duration++;
+			duration += __config__.delayTime * 8;
+		}
+		break;
+	
+	case 'g':
+		while (duration < renderDuration)
+		{
+			for (int i = 0; i <= 7; i++)
+			{			
+				__renderline__.payload[0] = LedMasks.Green.payload[0] | ((1 << i) & 0b11110000) | (((~lmm[i]) & 0b11110000) >> 4);
+				__renderline__.payload[1] = LedMasks.Green.payload[1] | ((1 << i) & 0b00001111) | (((~lmm[i]) & 0b00001111) << 4);
+				__renderline__.payload[2] = LedMasks.Green.payload[2];
+				__renderline__.payload[3] = LedMasks.Green.payload[3];
+				
+				wiringPiSPIDataRW(0, __renderline__.payload, LED_SEND_SIZE);
+				delay(__config__.delayTime);
+			}
+			
+			duration += __config__.delayTime * 8;
+		}
+		break;
+		
+	case 'b':
+		while (duration < renderDuration)
+		{
+			for (int i = 0; i <= 7; i++)
+			{			
+				__renderline__.payload[0] = LedMasks.Blue.payload[0] | ((1 << i) & 0b11110000);
+				__renderline__.payload[1] = LedMasks.Blue.payload[1] | ((1 << i) & 0b00001111);
+				__renderline__.payload[2] = LedMasks.Blue.payload[2] | (((~lmm[i])         & 0b00001111) << 4);
+				__renderline__.payload[3] = LedMasks.Blue.payload[3] | (((~lmmMirrored[i]) & 0b00001111));
+				
+				wiringPiSPIDataRW(0, __renderline__.payload, LED_SEND_SIZE);
+				delay(__config__.delayTime);
+			}
+			
+			duration += __config__.delayTime * 8;
 		}
 		break;
 	}
