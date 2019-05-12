@@ -16,7 +16,7 @@ int main()
 {
 	LedConfig Config = {};
 	Config.orientation = 0;
-	Config.primaryColor = 'r';
+	Config.primaryColor = 'b';
 	Config.delayTime = 1;
 	Config.exitFunction = myExit;
 	LedInit(Config);
