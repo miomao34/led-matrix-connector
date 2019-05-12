@@ -19,8 +19,7 @@ LedConfig DefaultConfig = {
 	1,
 	DefaultExitFunction
 };
-struct
-{
+struct {
 	LedRenderLine Red;
 	LedRenderLine Green;
 	LedRenderLine Blue;

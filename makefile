@@ -3,7 +3,7 @@ all:
 	gcc -o leds.out old_ugly_examples/leds.c -lwiringPi
 
 example:
-	gcc -o example.out example.c led-matrix-connector.c -lwiringPi
+	gcc -o example.out example.c led-matrix-connector/led-matrix-connector.c -lwiringPi
 	
 invader:
 	gcc -o invader.out old_ugly_examples/leds_invader.c -lwiringPi

@@ -1,3 +1,7 @@
+#ifndef LED_MATRIX_CONNECTOR
+#define LED_MATRIX_CONNECTOR
+
+
 #include <stdint.h>
 
 #define LED_SEND_SIZE 4
@@ -31,3 +35,6 @@ int ledMirrorMessage(LedMonochromeMessage output, LedMonochromeMessage msg);
 int LedRenderMonochrome(LedMonochromeMessage lmm, int renderDuration);
 
 int LedClear();
+
+
+#endif
