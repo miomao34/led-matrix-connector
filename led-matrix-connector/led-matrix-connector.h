@@ -31,8 +31,10 @@ int LedFinalise();
 
 uint8_t ledMirror(uint8_t byte);
 int ledMirrorMessage(LedMonochromeMessage output, LedMonochromeMessage msg);
+int ledGetASCII(LedMonochromeMessage output, char ascii_char);
 
 int LedRenderMonochrome(LedMonochromeMessage lmm, int renderDuration);
+int LedRenderText(const char * text, int renderDuration);
 
 int LedClear();
 

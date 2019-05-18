@@ -1,7 +1,9 @@
 #include "led-matrix-connector.h"
+#include "led-matrix-connector-ascii.h"
 
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
+#include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -102,6 +104,30 @@ int ledMirrorMessage(LedMonochromeMessage output, LedMonochromeMessage msg)
 	return 0;
 }
 
+int ledGetASCII(LedMonochromeMessage output, char ascii_char)
+{
+	if (ascii_char < ' ')
+	{
+		fprintf(stderr, "led-matrix-connector.c: ledGetASCII: character out of bounds - \\%i is lesser than \' \'", ascii_char);
+		//~ cancelFunction();
+		return 1;
+	}
+	
+	if (ascii_char > '~')
+	{
+		fprintf(stderr, "led-matrix-connector.c: ledGetASCII: character out of bounds - \\%i is greater than \'~\'", ascii_char);
+		//~ cancelFunction();
+		return 1;
+	}
+	
+	
+	for(int i = 0; i < 8; i++)
+		output[i] = LedASCII[ascii_char - ' '][i];
+	
+	return 0;
+}
+
+
 int LedRenderMonochrome(LedMonochromeMessage lmm, int renderDuration)
 {
 	int duration = 0;
@@ -163,6 +189,25 @@ int LedRenderMonochrome(LedMonochromeMessage lmm, int renderDuration)
 			duration += __config__.delayTime * 8;
 		}
 		break;
+	}
+	
+	LedClear();
+	
+	return 0;
+}
+
+int LedRenderText(const char * text, int letterRenderDuration)
+{
+	LedMonochromeMessage letter = {};
+	int i = 0;
+	while(*(text + i) >= ' ' && *(text + i) <= '~')
+	{
+		printf("%c\n", *(text + i));
+		ledGetASCII(letter, *(text + i));
+		LedRenderMonochrome(letter, letterRenderDuration);
+		LedClear();
+		
+		i++;
 	}
 	
 	LedClear();

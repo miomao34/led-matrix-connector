@@ -3,12 +3,13 @@
 #include <stdlib.h>
 
 #include "led-matrix-connector/led-matrix-connector.h"
-#include "led-matrix-connector/led-matrix-connector-ascii.h"
+//~ #include "led-matrix-connector/led-matrix-connector-ascii.h"
 
 void myExit()
 {
 	LedClear();
 	printf("\n");
+	//~ printf("\nsizeof: %i\n", sizeof(LedASCII)/sizeof(LedASCII[0]));
 	return;
 }
 
@@ -21,12 +22,11 @@ int main()
 	Config.exitFunction = myExit;
 	LedInit(Config);
 	
+	LedMonochromeMessage message = {};
+	
 	while(1)
 	{
-		for (int i = 0; i < sizeof(LedASCII)/sizeof(LedASCII[0]); i++)
-		{
-			LedRenderMonochrome(LedASCII[i], 350);
-		}
+		LedRenderText("This is an EXAMPLE message 0123456789     ", 400);
 	}
 	LedFinalise();
 }
