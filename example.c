@@ -9,7 +9,6 @@ void myExit()
 {
 	LedClear();
 	printf("\n");
-	//~ printf("\nsizeof: %i\n", sizeof(LedASCII)/sizeof(LedASCII[0]));
 	return;
 }
 

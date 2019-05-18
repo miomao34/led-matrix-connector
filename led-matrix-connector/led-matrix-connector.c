@@ -202,7 +202,6 @@ int LedRenderText(const char * text, int letterRenderDuration)
 	int i = 0;
 	while(*(text + i) >= ' ' && *(text + i) <= '~')
 	{
-		printf("%c\n", *(text + i));
 		ledGetASCII(letter, *(text + i));
 		LedRenderMonochrome(letter, letterRenderDuration);
 		LedClear();
