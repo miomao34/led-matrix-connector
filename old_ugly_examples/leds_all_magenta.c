@@ -10,15 +10,14 @@ int main(void)
   printf("%i : %i\n", sizeof(0b00000000), sizeof(uint8_t));
   
   wiringPiSetup();
-  wiringPiSPISetup(0,500000);
+  wiringPiSPISetup(1,500000);
 
   data[0] = 0b11111111;
   data[1] = 0b11111111; 
   data[2] = 0b00000000;
   data[3] = 0b00000000;
   
-  printf("boop bitch\n");
   
-  wiringPiSPIDataRW(0,data,sizeof(data));
+  wiringPiSPIDataRW(1,data,sizeof(data));
   return 0;
 }

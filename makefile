@@ -5,6 +5,9 @@ all:
 example:
 	gcc -o example.out example.c led-matrix-connector/led-matrix-connector.c -lwiringPi
 	
+pixel:
+	gcc -o pixel_runner.out old_ugly_examples/leds_pixel_runner.c led-matrix-connector/led-matrix-connector.c -lwiringPi
+	
 invader:
 	gcc -o invader.out old_ugly_examples/leds_invader.c -lwiringPi
 
@@ -30,5 +33,7 @@ magenta:
 #~ 	echo -e ${RED}TBD${NC}
 white:
 	gcc -o white.out old_ugly_examples/leds_all_white.c -lwiringPi
+wipe:
+	gcc -o wipe.out old_ugly_examples/leds_wipe.c -lwiringPi
 	
 amends:

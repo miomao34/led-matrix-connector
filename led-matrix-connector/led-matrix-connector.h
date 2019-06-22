@@ -11,6 +11,7 @@ typedef void (*ExitFunction)();
 typedef struct
 {
 	int orientation;
+	int spiDevice;
 	
 	char primaryColor;
 	
