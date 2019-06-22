@@ -14,12 +14,13 @@ void myExit()
 
 int main()
 {
-	LedConfig Config = {};
-	Config.orientation = 0;
-	Config.spiDevice = 1;
-	Config.primaryColor = 'c';
-	Config.delayTime = 1;
-	Config.exitFunction = myExit;
+	LedConfig Config = {
+		.orientation = 0,
+		.spiDevice = 1,
+		.primaryColor = 'c',
+		.delayTime = 1,
+		.exitFunction = myExit
+	};
 	LedInit(Config);
 	
 	LedMonochromeMessage message = {};

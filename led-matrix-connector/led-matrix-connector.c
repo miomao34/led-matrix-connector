@@ -16,11 +16,11 @@ void DefaultExitFunction()
 }
 
 LedConfig DefaultConfig = {
-	0,
-	0,
-	'g',
-	1,
-	DefaultExitFunction
+	.orientation = 0,
+	.spiDevice = 0,
+	.primaryColor = 'b',
+	.delayTime = 1,
+	.exitFunction = DefaultExitFunction
 };
 struct {
 	LedRenderLine Red;
