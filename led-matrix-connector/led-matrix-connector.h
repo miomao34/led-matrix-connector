@@ -36,6 +36,7 @@ int ledGetASCII(LedMonochromeMessage output, char ascii_char);
 
 int LedRenderMonochrome(LedMonochromeMessage lmm, int renderDuration);
 int LedRenderText(const char * text, int renderDuration);
+int LedRenderMorse(const char * text, int renderDuration);
 
 int LedClear();
 

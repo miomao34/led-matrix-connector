@@ -600,6 +600,7 @@ LedMonochromeMessage LedASCII[] =
 		0b01111110,
 		0b01111110
 	},
+	// Symbols after uppercase letters
 	{
 		0b00111100,
 		0b00110000,
@@ -921,6 +922,7 @@ LedMonochromeMessage LedASCII[] =
 		0b00100000,
 		0b01111100
 	},
+	// Symbols after lowercase letters
 	{
 		0b00001100,
 		0b00010000,

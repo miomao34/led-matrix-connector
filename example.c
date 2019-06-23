@@ -17,17 +17,16 @@ int main()
 	LedConfig Config = {
 		.orientation = 0,
 		.spiDevice = 1,
-		.primaryColor = 'c',
+		.primaryColor = 'g',
 		.delayTime = 1,
 		.exitFunction = myExit
 	};
 	LedInit(Config);
 	
-	LedMonochromeMessage message = {};
-	
 	while(1)
 	{
-		LedRenderText("This is an EXAMPLE message 0123456789     ", 300);
+		LedRenderText("HELLO THERE 0123456789   ", 300);
+		LedRenderMorse("SOS ", 150);
 	}
 	LedFinalise();
 }

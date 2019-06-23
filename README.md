@@ -4,9 +4,8 @@ Matrix model name: `Led Matrix V1.0 2016-07-05` (bought from aliexpress, so that
 
 
 ## TODO, code:
-* Gotta make better names for `cancelFunc`/`exitFunc` for better understanding and structure
+* Gotta make better names for `cancelFunc` and/or `exitFunc` for better understanding and structure
 * Animations:
-  * Add special mode for displaying Morse code
   * ? Add special mode for "drawing" symbols from top to bottom
   * Deal with sending chunks of unspecified size, add timeout between frames to config
   * `LedAnimationPlay(...)` - async?
@@ -16,7 +15,6 @@ Matrix model name: `Led Matrix V1.0 2016-07-05` (bought from aliexpress, so that
   * Add 3 supplementary colors to `LedRenderMonochrome(...)`
    * Add layered `LedRenderMonochrome(...)` functions to emulate default variables
 * Dictionaries:
-  * Add a Morse code dictionary
   * Add a braile alphabet dictionary
   
 

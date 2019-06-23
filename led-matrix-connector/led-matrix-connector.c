@@ -1,5 +1,6 @@
 #include "led-matrix-connector.h"
 #include "led-matrix-connector-ascii.h"
+#include "led-matrix-connector-morse.h"
 
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
@@ -15,7 +16,8 @@ void DefaultExitFunction()
 	LedClear();
 }
 
-LedConfig DefaultConfig = {
+LedConfig DefaultConfig = 
+{
 	.orientation = 0,
 	.spiDevice = 0,
 	.primaryColor = 'b',
@@ -67,6 +69,30 @@ struct {
 		0b11110000,
 		0b00001111
 	},
+};
+
+LedMonochromeMessage EMPTY = 
+{
+	0b00000000,
+	0b00000000,
+	0b00000000,
+	0b00000000,
+	0b00000000,
+	0b00000000,
+	0b00000000,
+	0b00000000
+};
+
+LedMonochromeMessage FULL = 
+{
+	0b11111111,
+	0b11111111,
+	0b11111111,
+	0b11111111,
+	0b11111111,
+	0b11111111,
+	0b11111111,
+	0b11111111
 };
 
 void cancelFunction()
@@ -133,14 +159,14 @@ int ledGetASCII(LedMonochromeMessage output, char ascii_char)
 	if (ascii_char < ' ')
 	{
 		fprintf(stderr, "led-matrix-connector.c: ledGetASCII: character out of bounds - \\%i is lesser than \' \'", ascii_char);
-		//~ cancelFunction();
+		// cancelFunction();
 		return 1;
 	}
 	
 	if (ascii_char > '~')
 	{
 		fprintf(stderr, "led-matrix-connector.c: ledGetASCII: character out of bounds - \\%i is greater than \'~\'", ascii_char);
-		//~ cancelFunction();
+		// cancelFunction();
 		return 1;
 	}
 	
@@ -260,11 +286,64 @@ int LedRenderText(const char * text, int letterRenderDuration)
 {
 	LedMonochromeMessage letter = {};
 	int i = 0;
-	while(*(text + i) >= ' ' && *(text + i) <= '~')
+	while(*(text + i) != '\n' && *(text + i) != '\0' && *(text + i) >= ' ' && *(text + i) <= '~')
 	{
 		ledGetASCII(letter, *(text + i));
 		LedRenderMonochrome(letter, letterRenderDuration);
 		LedClear();
+		
+		i++;
+	}
+	
+	LedClear();
+	
+	return 0;
+}
+
+char * ledGetMorse(char ascii_char)
+{
+	if (ascii_char < ' ')
+	{
+		fprintf(stderr, "led-matrix-connector.c: ledGetMorse: character out of bounds - \\%i is lesser than \' \'", ascii_char);
+		// cancelFunction();
+		return NULL;
+	}
+	
+	if (ascii_char > '~')
+	{
+		fprintf(stderr, "led-matrix-connector.c: ledGetMorse: character out of bounds - \\%i is greater than \'~\'", ascii_char);
+		// cancelFunction();
+		return NULL;
+	}
+	
+	return LedMorse[ascii_char - ' '];
+}
+
+int LedRenderMorse(const char * text, int letterRenderDuration)
+{
+	char * ptr = NULL;
+	int i = 0;
+	while(*(text + i) != '\n' && *(text + i) != '\0' && *(text + i) >= ' ' && *(text + i) <= '~')
+	{
+		ptr = ledGetMorse(*(text + i));
+		for(int j = 0; j <= 6; j++)
+		{
+			if (*(ptr + j) == '\0')
+				break;
+			
+			if (*(ptr + j) == '.')
+				LedRenderMonochrome(FULL, letterRenderDuration);
+				
+			if (*(ptr + j) == '-')
+				LedRenderMonochrome(FULL, letterRenderDuration * 3);
+				
+			if (*(ptr + j) == ' ')
+				LedRenderMonochrome(EMPTY, letterRenderDuration);
+			
+			LedRenderMonochrome(EMPTY, letterRenderDuration);
+		}
+		
+		LedRenderMonochrome(EMPTY, letterRenderDuration * 2);
 		
 		i++;
 	}
