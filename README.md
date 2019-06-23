@@ -3,10 +3,10 @@ Reverse engineering byte codes and setting up rich connector library<br/>
 Matrix model name: `Led Matrix V1.0 2016-07-05` (bought from aliexpress, so that's all the information I'll ever get<br/>¯\\_(ツ)_/¯)
 
 ## Current features:
-[x] Render static images in monochrome
-[x] Display text
-[x] Display Morse code messages from text
-[x] Support for lazy keyboard interruptions handling  
+- [x] Render static images in monochrome
+- [x] Display text
+- [x] Display Morse code messages from text
+- [x] Support for lazy keyboard interruptions handling  
 
 
 ## TODO, code:
